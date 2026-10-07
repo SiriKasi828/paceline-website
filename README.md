@@ -1,41 +1,67 @@
-# PACELINE - Performance Running Store & Club
+# PACELINE — Run Club & Lab
 
-A responsive web application for PACELINE, implementing both the Home and About pages. Built with clean HTML5, Tailwind CSS, and vanilla JavaScript, featuring an off-white aesthetic with dark charcoal sections and neon lime accents.
-
-## Live Demo & Repository
-- **Live Deployment**: [Your Live Netlify/GitHub Pages Link Here]
-- **Git Repository**: [Your GitHub Repository Link Here]
+A responsive, single-page running store and run club website. It has a **Home** page (hero, categories, product grid, brand story, banners) and an **About** page (story, philosophy, timeline, store info, founders). Both pages live in `index.html` and switch without reloading.
 
 ## Features
 
-### Home Page
-- **Hero Section**: High-impact banner with brand headline and call-to-action buttons.
-- **Category Grid**: Itemized showcase for Road Running, Trail Running, Apparel, and Accessories.
-- **New Arrivals Carousel & Filter**: Dynamic gear cards with category tab filtering (View All, Race Day, Weekly Miles, Trail).
-- **Brand Story Banner**: Highlighting community stats ($10+$ years in store, $40+$ running sessions, $1$ passion).
-- **Gender Collections**: Featured Men's and Women's running collection grid cards.
+- Home and About pages in one file, switched with tabs (no page reload)
+- Product grid with 18 products, filter chips (New, Race Day, Road, Trail, Apparel, Accessories, Recovery, Winter, Sale) and nav shortcuts for Men, Women, Footwear and Sale
+- Live search overlay with popular searches
+- Shopping bag drawer with item count, subtotal and checkout button
+- Book-a-fitting modal and newsletter signup form
+- Toast notifications
+- Mobile menu and fully responsive layout
 
-### About Page
-- **Our Story**: Brand narrative with running community photography.
-- **Three Core Pillars**: Clean cards highlighting quality, community, and craft.
-- **Milestone Timeline**: Interactive company journey from 2015 to 2026.
-- **Visit Us Location Map**: Map block with store hours and fitting booking trigger.
-- **Team Spotlights**: Founder profiles for Rae Sinclair and Jamie Roy.
+## Tech stack
 
-### Interactive Features
-- **SPA Navigation**: Instant switching between Home and About pages without page reloads.
-- **Slide-over Shopping Bag**: Slide-out cart with real-time item counter, quantity controls, and subtotal calculation.
-- **Quick Fitting Modal**: Appointment booking system with date, time, and store location pickers.
-- **Search Overlay**: Real-time modal with quick links and search input.
+- HTML5
+- CSS3
+- [Tailwind CSS](https://tailwindcss.com) (Play CDN, no build step)
+- Vanilla JavaScript (no framework)
+- Google Fonts: Syne and Plus Jakarta Sans
 
-## Tech Stack
-- **Structure**: HTML5
-- **Styling**: Tailwind CSS (via CDN)
-- **Scripting**: JavaScript (Vanilla ES6)
-- **Icons & Typography**: Lucide Icons, Google Fonts (*Syne* & *Plus Jakarta Sans*)
+## Project structure
 
-## Local Setup Instructions
+```
+paceline/
+├── index.html              # Markup for both Home and About pages
+├── css/
+│   └── styles.css          # Custom CSS (icons, animations, toast, chips)
+├── js/
+│   ├── tailwind.config.js  # Tailwind theme: colors and fonts
+│   ├── images.js           # Image path map for page and product images
+│   └── main.js             # Product data, filtering, search, cart, tabs, modals
+├── assets/
+│   └── images/             # Site and product images
+└── README.md
+```
 
-1. Clone or download this repository:
-   ```bash
-  git clone [https://github.com/SiriKasi828/paceline-website.git](https://github.com/SiriKasi828/paceline-website.git)
+## Getting started
+
+No installation is needed. Download or clone the repo, then either open `index.html` in your browser or run a local server:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then visit http://localhost:8000.
+
+An internet connection is required because Tailwind CSS and Google Fonts load from CDNs.
+
+## Customising
+
+- **Products:** edit the `PRODUCTS` array in `js/main.js` (title, brand, price, badge, category, tags, image).
+- **Images:** replace files in `assets/images/`, or change the paths in `js/images.js`.
+- **Colors and fonts:** edit `js/tailwind.config.js` (`paceline-bg`, `paceline-dark`, `paceline-lime`, `paceline-border`).
+- **Text and sections:** edit `index.html`. The Home page is `#page-home` and the About page is `#page-about`.
+
+## Deploy with GitHub Pages
+
+1. Push the project to a GitHub repository.
+2. Go to **Settings → Pages**.
+3. Under **Source**, choose the `main` branch and the `/ (root)` folder, then save.
+4. Your site will be live at `https://<your-username>.github.io/<repo-name>/`.
+
+## License
+
+Add a license of your choice (for example MIT) before publishing.
