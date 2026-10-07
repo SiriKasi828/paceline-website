@@ -61,7 +61,3 @@ An internet connection is required because Tailwind CSS and Google Fonts load fr
 2. Go to **Settings → Pages**.
 3. Under **Source**, choose the `main` branch and the `/ (root)` folder, then save.
 4. Your site will be live at `https://<your-username>.github.io/<repo-name>/`.
-
-## License
-
-Add a license of your choice (for example MIT) before publishing.
