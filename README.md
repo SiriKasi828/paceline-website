@@ -38,4 +38,4 @@ A responsive web application for PACELINE, implementing both the Home and About 
 
 1. Clone or download this repository:
    ```bash
-   git clone [https://github.com/Paceline/paceline-website.git](https://github.com/YOUR-USERNAME/paceline-website.git)
+  git clone [https://github.com/SiriKasi828/paceline-website.git](https://github.com/SiriKasi828/paceline-website.git)
