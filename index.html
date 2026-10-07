@@ -1,560 +1,887 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PACELINE | Performance Running Store & Club</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              bg: '#FBF9F5',
-              dark: '#121314',
-              card: '#1C1D1F',
-              accent: '#CCFF00',
-              accentHover: '#b3e600',
-              muted: '#8E8E93',
-              lightGray: '#F2F0EB'
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PACELINE — Run Club & Lab</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Syne & Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'paceline-bg': '#F4F1EC',
+                        'paceline-dark': '#111111',
+                        'paceline-lime': '#CCFF00',
+                        'paceline-border': '#E2DFD8',
+                    },
+                    fontFamily: {
+                        display: ['Syne', 'sans-serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
             }
-          },
-          fontFamily: {
-            sans: ['Plus Jakarta Sans', 'sans-serif'],
-            display: ['Syne', 'sans-serif']
-          }
         }
-      }
-    }
-  </script>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+    </script>
+    <style>
+        body {
+            background-color: #F4F1EC;
+            color: #111111;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        .font-display {
+            font-family: 'Syne', sans-serif;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F4F1EC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #111111;
+        }
+        .glass-nav {
+            background: rgba(244, 241, 236, 0.94);
+            backdrop-filter: blur(12px);
+        }
+        .pin-pulse {
+            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(204, 255, 0, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 15px rgba(204, 255, 0, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(204, 255, 0, 0); }
+        }
+    </style>
 </head>
-<body class="bg-brand-bg text-brand-dark font-sans antialiased selection:bg-brand-accent selection:text-brand-dark min-h-screen flex flex-col">
+<body class="antialiased text-[#111111] bg-[#F4F1EC] selection:bg-[#CCFF00] selection:text-black min-h-screen flex flex-col justify-between">
 
-  <!-- Navigation Header -->
-  <header class="sticky top-0 z-40 bg-brand-bg/90 backdrop-blur-md border-b border-black/5 transition-all duration-200">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-      <!-- Logo -->
-      <button type="button" onclick="switchPage('home')" class="font-display text-2xl font-extrabold tracking-tighter flex items-center gap-2 text-left">
-        <span class="w-3 h-3 bg-brand-accent inline-block rounded-full"></span>
-        PACELINE
-      </button>
-
-      <!-- Navigation Links -->
-      <nav class="hidden md:flex items-center space-x-8 font-medium text-sm tracking-wide">
-        <button type="button" onclick="switchPage('home')" id="nav-home" class="transition-colors hover:text-black text-black font-semibold border-b-2 border-brand-accent pb-1">HOME</button>
-        <button type="button" onclick="switchPage('about')" id="nav-about" class="text-gray-500 hover:text-black transition-colors pb-1">ABOUT</button>
-        <button type="button" onclick="filterCategory('race')" class="text-gray-500 hover:text-black transition-colors pb-1">RACE DAY</button>
-        <button type="button" onclick="filterCategory('trail')" class="text-gray-500 hover:text-black transition-colors pb-1">TRAIL</button>
-      </nav>
-
-      <!-- Actions -->
-      <div class="flex items-center space-x-5">
-        <button type="button" onclick="toggleSearch(event)" class="p-2 hover:bg-black/5 rounded-full transition-colors" title="Search">
-          <i data-lucide="search" class="w-5 h-5"></i>
-        </button>
-        <button type="button" onclick="toggleCart(event)" class="p-2 hover:bg-black/5 rounded-full transition-colors relative" title="Bag">
-          <i data-lucide="shopping-bag" class="w-5 h-5"></i>
-          <span id="cart-count" class="absolute top-1 right-1 bg-brand-accent text-brand-dark text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">1</span>
-        </button>
-        <button type="button" onclick="openBookingModal(event)" class="hidden sm:inline-flex bg-brand-dark text-white px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-black transition-colors">
-          Book Fitting
-        </button>
-      </div>
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 bg-[#111111] text-white px-5 py-3.5 rounded-xl shadow-2xl flex items-center space-x-3 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="w-3 h-3 rounded-full bg-[#CCFF00]"></div>
+        <span id="toast-message" class="text-xs font-bold uppercase tracking-wider">Item added to bag!</span>
     </div>
-  </header>
 
-  <!-- PAGE: HOME -->
-  <main id="page-home" class="flex-grow">
-    <!-- Hero Section -->
-    <section class="relative bg-brand-dark text-white overflow-hidden py-24 md:py-32">
-      <div class="absolute inset-0 z-0 opacity-40">
-        <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1920&q=80" alt="Runner background" class="w-full h-full object-cover">
-      </div>
-      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl">
-          <span class="inline-block bg-brand-accent text-brand-dark px-3 py-1 rounded-full text-xs font-extrabold uppercase tracking-widest mb-6">SPRING 2026 DROP</span>
-          <h1 class="font-display text-5xl md:text-7xl font-extrabold tracking-tight leading-none mb-6">
-            PRECISION GEAR FOR EVERY MILE.
-          </h1>
-          <p class="text-gray-300 text-lg mb-8 max-w-xl">
-            Elevating human potential through innovative run engineering, biomechanical fit analysis, and an unyielding community spirit.
-          </p>
-          <div class="flex flex-wrap gap-4">
-            <button type="button" onclick="scrollToArrivals(event)" class="bg-brand-accent text-brand-dark px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm hover:bg-brand-accentHover transition-colors">
-              Shop New Arrivals
+    <!-- Booking Modal -->
+    <div id="booking-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-6 md:p-8 relative shadow-2xl border border-[#E2DFD8]">
+            <button type="button" onclick="toggleModal('booking-modal')" class="absolute top-5 right-5 text-gray-400 hover:text-black p-2 focus:outline-none">
+                <i class="fa-solid fa-xmark text-xl"></i>
             </button>
-            <button type="button" onclick="openBookingModal(event)" class="border border-white/30 text-white px-8 py-4 rounded-full font-bold uppercase tracking-wider text-sm hover:bg-white/10 transition-colors">
-              Book Gait Analysis
-            </button>
-          </div>
+            <div class="inline-block px-3 py-1 bg-[#CCFF00] text-black text-[10px] font-black tracking-widest uppercase mb-3 rounded-full">PACELINE LAB</div>
+            <h3 class="text-2xl font-black font-display uppercase tracking-tight mb-1">Book a Shoe Fitting</h3>
+            <p class="text-gray-600 text-xs mb-6">Experience our gait fitting with our expert run technicians.</p>
+            
+            <form onsubmit="handleBooking(event)" class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-700 mb-1">Full Name</label>
+                    <input type="text" required placeholder="Runner Name" class="w-full bg-[#F4F1EC] border border-[#E2DFD8] rounded-xl px-4 py-3 text-xs font-medium focus:outline-none focus:border-black">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-700 mb-1">Preferred Date</label>
+                        <input type="date" required class="w-full bg-[#F4F1EC] border border-[#E2DFD8] rounded-xl px-4 py-3 text-xs font-medium focus:outline-none focus:border-black">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-700 mb-1">Preferred Time</label>
+                        <select class="w-full bg-[#F4F1EC] border border-[#E2DFD8] rounded-xl px-4 py-3 text-xs font-medium focus:outline-none focus:border-black">
+                            <option>10:00 AM</option>
+                            <option>01:30 PM</option>
+                            <option>04:00 PM</option>
+                            <option>06:00 PM</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-extrabold uppercase tracking-wider text-gray-700 mb-1">Location</label>
+                    <select class="w-full bg-[#F4F1EC] border border-[#E2DFD8] rounded-xl px-4 py-3 text-xs font-medium focus:outline-none focus:border-black">
+                        <option>PACELINE Flagship Store</option>
+                        <option>PACELINE Fitting Lab</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-[#111111] hover:bg-[#CCFF00] hover:text-black text-white font-extrabold py-4 rounded-xl transition-colors duration-200 uppercase tracking-wider text-xs mt-2 focus:outline-none">
+                    CONFIRM APPOINTMENT
+                </button>
+            </form>
         </div>
-      </div>
-    </section>
-
-    <!-- Categories Grid -->
-    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-display text-2xl font-bold tracking-tight mb-8">SHOP BY CATEGORY</h2>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-brand-lightGray cursor-pointer">
-          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80" alt="Road Running" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
-            <span class="text-white font-display font-bold text-lg">ROAD RUNNING</span>
-          </div>
-        </div>
-        <div class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-brand-lightGray cursor-pointer">
-          <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=800&q=80" alt="Trail Running" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
-            <span class="text-white font-display font-bold text-lg">TRAIL & OUTDOOR</span>
-          </div>
-        </div>
-        <div class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-brand-lightGray cursor-pointer">
-          <img src="https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80" alt="Apparel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
-            <span class="text-white font-display font-bold text-lg">PERFORMANCE APPAREL</span>
-          </div>
-        </div>
-        <div class="group relative rounded-2xl overflow-hidden aspect-[4/5] bg-brand-lightGray cursor-pointer">
-          <img src="https://images.unsplash.com/photo-1511556532299-8f662fc26c06?auto=format&fit=crop&w=800&q=80" alt="Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-6">
-            <span class="text-white font-display font-bold text-lg">GEAR & RECOVERY</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- New Arrivals Section -->
-    <section id="new-arrivals" class="py-16 bg-white border-y border-black/5">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
-          <div>
-            <span class="text-xs font-extrabold uppercase tracking-widest text-brand-muted">LATEST CURATION</span>
-            <h2 class="font-display text-3xl font-extrabold tracking-tight mt-1">NEW ARRIVALS</h2>
-          </div>
-          <!-- Category Filter Tabs -->
-          <div class="flex flex-wrap gap-2">
-            <button type="button" onclick="filterCategory('all', event)" class="cat-tab px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-brand-dark text-white">View All</button>
-            <button type="button" onclick="filterCategory('race', event)" class="cat-tab px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-brand-lightGray text-gray-700 hover:bg-gray-200">Race Day</button>
-            <button type="button" onclick="filterCategory('weekly', event)" class="cat-tab px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-brand-lightGray text-gray-700 hover:bg-gray-200">Weekly Miles</button>
-            <button type="button" onclick="filterCategory('trail', event)" class="cat-tab px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-brand-lightGray text-gray-700 hover:bg-gray-200">Trail</button>
-          </div>
-        </div>
-
-        <!-- Product Grid -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <!-- Item 1 -->
-          <div class="product-card group" data-category="race">
-            <div class="relative bg-brand-bg rounded-2xl overflow-hidden aspect-square p-6 flex items-center justify-center mb-4">
-              <span class="absolute top-3 left-3 bg-brand-dark text-white text-[10px] font-extrabold px-2 py-1 rounded">CARBON PLATED</span>
-              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=600&q=80" alt="Strider Pro Carbon" class="h-4/5 object-contain group-hover:scale-110 transition-transform duration-300">
-              <button type="button" onclick="addToCart('Strider Pro Carbon', 240, event)" class="absolute bottom-3 right-3 bg-brand-accent p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
-                <i data-lucide="plus" class="w-4 h-4 text-brand-dark"></i>
-              </button>
-            </div>
-            <div class="flex justify-between items-start">
-              <div>
-                <h3 class="font-bold text-sm">Strider Pro Carbon v3</h3>
-                <p class="text-xs text-brand-muted mt-0.5">Race Day • Unisex</p>
-              </div>
-              <span class="font-display font-bold text-sm">$240</span>
-            </div>
-          </div>
-
-          <!-- Item 2 -->
-          <div class="product-card group" data-category="weekly">
-            <div class="relative bg-brand-bg rounded-2xl overflow-hidden aspect-square p-6 flex items-center justify-center mb-4">
-              <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=600&q=80" alt="Nimbus Float Daily" class="h-4/5 object-contain group-hover:scale-110 transition-transform duration-300">
-              <button type="button" onclick="addToCart('Nimbus Float Daily', 160, event)" class="absolute bottom-3 right-3 bg-brand-accent p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
-                <i data-lucide="plus" class="w-4 h-4 text-brand-dark"></i>
-              </button>
-            </div>
-            <div class="flex justify-between items-start">
-              <div>
-                <h3 class="font-bold text-sm">Nimbus Float Daily</h3>
-                <p class="text-xs text-brand-muted mt-0.5">Max Cushion • Daily Trainer</p>
-              </div>
-              <span class="font-display font-bold text-sm">$160</span>
-            </div>
-          </div>
-
-          <!-- Item 3 -->
-          <div class="product-card group" data-category="trail">
-            <div class="relative bg-brand-bg rounded-2xl overflow-hidden aspect-square p-6 flex items-center justify-center mb-4">
-              <span class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-extrabold px-2 py-1 rounded">VIBRAM GRIP</span>
-              <img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=600&q=80" alt="Alpine Crest GTX" class="h-4/5 object-contain group-hover:scale-110 transition-transform duration-300">
-              <button type="button" onclick="addToCart('Alpine Crest GTX', 185, event)" class="absolute bottom-3 right-3 bg-brand-accent p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
-                <i data-lucide="plus" class="w-4 h-4 text-brand-dark"></i>
-              </button>
-            </div>
-            <div class="flex justify-between items-start">
-              <div>
-                <h3 class="font-bold text-sm">Alpine Crest GTX</h3>
-                <p class="text-xs text-brand-muted mt-0.5">Waterproof Trail Runner</p>
-              </div>
-              <span class="font-display font-bold text-sm">$185</span>
-            </div>
-          </div>
-
-          <!-- Item 4 -->
-          <div class="product-card group" data-category="weekly">
-            <div class="relative bg-brand-bg rounded-2xl overflow-hidden aspect-square p-6 flex items-center justify-center mb-4">
-              <img src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?auto=format&fit=crop&w=600&q=80" alt="Tempo Glide 2" class="h-4/5 object-contain group-hover:scale-110 transition-transform duration-300">
-              <button type="button" onclick="addToCart('Tempo Glide 2', 140, event)" class="absolute bottom-3 right-3 bg-brand-accent p-3 rounded-full shadow-lg hover:scale-110 transition-transform">
-                <i data-lucide="plus" class="w-4 h-4 text-brand-dark"></i>
-              </button>
-            </div>
-            <div class="flex justify-between items-start">
-              <div>
-                <h3 class="font-bold text-sm">Tempo Glide 2</h3>
-                <p class="text-xs text-brand-muted mt-0.5">Lightweight Trainer</p>
-              </div>
-              <span class="font-display font-bold text-sm">$140</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Brand Story Banner -->
-    <section class="py-20 bg-brand-dark text-white relative">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-        <div class="p-6 border border-white/10 rounded-2xl">
-          <div class="font-display text-4xl font-extrabold text-brand-accent mb-2">10+ YEARS</div>
-          <p class="text-gray-400 text-sm">Serving the run community with biomechanical gait analysis and expert gear curation.</p>
-        </div>
-        <div class="p-6 border border-white/10 rounded-2xl">
-          <div class="font-display text-4xl font-extrabold text-brand-accent mb-2">40+ RUNS</div>
-          <p class="text-gray-400 text-sm">Weekly group runs organized across road, track, and mountain trail networks.</p>
-        </div>
-        <div class="p-6 border border-white/10 rounded-2xl">
-          <div class="font-display text-4xl font-extrabold text-brand-accent mb-2">1 PASSION</div>
-          <p class="text-gray-400 text-sm">Helping every runner find their rhythmic paceline, injury-free and fully energized.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Gender / Collections Section -->
-    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-display text-2xl font-bold tracking-tight mb-8">FEATURED COLLECTIONS</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <!-- Men's Collection (FIXED IMAGE) -->
-        <div class="relative rounded-3xl overflow-hidden aspect-[16/9] group cursor-pointer bg-brand-dark">
-          <img src="https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1200&q=80" alt="Men's Apparel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
-            <span class="text-brand-accent text-xs font-bold uppercase tracking-widest mb-1">MEN's GEAR</span>
-            <h3 class="font-display text-2xl font-extrabold text-white mb-4">Built for Distance</h3>
-            <button type="button" class="w-fit bg-white text-black px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-brand-accent transition-colors">Explore Men's</button>
-          </div>
-        </div>
-        <!-- Women's Collection -->
-        <div class="relative rounded-3xl overflow-hidden aspect-[16/9] group cursor-pointer bg-brand-dark">
-          <img src="https://images.unsplash.com/photo-1502680390469-be75c86b636f?auto=format&fit=crop&w=1200&q=80" alt="Women's Collection" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80">
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex flex-col justify-end p-8">
-            <span class="text-brand-accent text-xs font-bold uppercase tracking-widest mb-1">WOMEN's GEAR</span>
-            <h3 class="font-display text-2xl font-extrabold text-white mb-4">Light, Fast & Unstoppable</h3>
-            <button type="button" class="w-fit bg-white text-black px-5 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider hover:bg-brand-accent transition-colors">Explore Women's</button>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- PAGE: ABOUT (Initially Hidden) -->
-  <main id="page-about" class="flex-grow hidden">
-    <!-- Story Hero -->
-    <section class="bg-brand-dark text-white py-20">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
-        <span class="text-brand-accent text-xs font-bold uppercase tracking-widest">OUR STORY</span>
-        <h1 class="font-display text-4xl md:text-6xl font-extrabold tracking-tight mt-2 mb-6">MORE THAN A STORE. A RUNNING CULTURE.</h1>
-        <p class="text-gray-300 leading-relaxed text-base md:text-lg">
-          Founded in 2015 by two marathon veterans, PACELINE was born out of a desire for authentic, runner-centric gear, biomechanical expertise, and an inclusive local run club.
-        </p>
-      </div>
-    </section>
-
-    <!-- Pillars -->
-    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-display text-2xl font-bold text-center mb-12">OUR CORE PILLARS</h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-2xl border border-black/5 shadow-sm">
-          <div class="w-12 h-12 bg-brand-accent/30 rounded-xl flex items-center justify-center mb-6">
-            <i data-lucide="zap" class="w-6 h-6 text-brand-dark"></i>
-          </div>
-          <h3 class="font-display font-bold text-xl mb-3">Technical Craft</h3>
-          <p class="text-sm text-gray-600 leading-relaxed">Every shoe and apparel item on our shelves undergoes testing by our crew to meet strict performance metrics.</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl border border-black/5 shadow-sm">
-          <div class="w-12 h-12 bg-brand-accent/30 rounded-xl flex items-center justify-center mb-6">
-            <i data-lucide="users" class="w-6 h-6 text-brand-dark"></i>
-          </div>
-          <h3 class="font-display font-bold text-xl mb-3">Run Club Community</h3>
-          <p class="text-sm text-gray-600 leading-relaxed">We host 3 free community runs every week—open to all paces, from first-timers to 2:20 marathoners.</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl border border-black/5 shadow-sm">
-          <div class="w-12 h-12 bg-brand-accent/30 rounded-xl flex items-center justify-center mb-6">
-            <i data-lucide="activity" class="w-6 h-6 text-brand-dark"></i>
-          </div>
-          <h3 class="font-display font-bold text-xl mb-3">Custom Fitting</h3>
-          <p class="text-sm text-gray-600 leading-relaxed">Our high-speed camera gait analysis ensures you leave with footwear perfectly matched to your stride biomechanics.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Timeline -->
-    <section class="py-16 bg-white border-y border-black/5">
-      <div class="max-w-4xl mx-auto px-4">
-        <h2 class="font-display text-2xl font-bold text-center mb-12">MILESTONES</h2>
-        <div class="space-y-8">
-          <div class="flex gap-6 items-start">
-            <span class="font-display font-extrabold text-brand-accent bg-brand-dark px-3 py-1 rounded text-sm shrink-0">2015</span>
-            <div>
-              <h4 class="font-bold">PACELINE Founded</h4>
-              <p class="text-sm text-gray-600">Opened our first flagship storefront with a modest 10-pair shoe wall.</p>
-            </div>
-          </div>
-          <div class="flex gap-6 items-start">
-            <span class="font-display font-extrabold text-brand-accent bg-brand-dark px-3 py-1 rounded text-sm shrink-0">2019</span>
-            <div>
-              <h4 class="font-bold">Run Club Reaches 1,000 Members</h4>
-              <p class="text-sm text-gray-600">Expanded weekly sessions to include trail runs, track workouts, and recovery nights.</p>
-            </div>
-          </div>
-          <div class="flex gap-6 items-start">
-            <span class="font-display font-extrabold text-brand-accent bg-brand-dark px-3 py-1 rounded text-sm shrink-0">2026</span>
-            <div>
-              <h4 class="font-bold">Next-Gen Digital Experience</h4>
-              <p class="text-sm text-gray-600">Launched our seamless web app and gait analysis booking platform.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Team -->
-    <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-display text-2xl font-bold text-center mb-12">MEET THE FOUNDERS</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-        <div class="text-center">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80" alt="Rae Sinclair" class="w-32 h-32 rounded-full mx-auto object-cover mb-4">
-          <h3 class="font-bold text-lg">Rae Sinclair</h3>
-          <p class="text-xs text-brand-muted uppercase font-semibold">Co-Founder & Head of Fitting</p>
-        </div>
-        <div class="text-center">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80" alt="Jamie Roy" class="w-32 h-32 rounded-full mx-auto object-cover mb-4">
-          <h3 class="font-bold text-lg">Jamie Roy</h3>
-          <p class="text-xs text-brand-muted uppercase font-semibold">Co-Founder & Community Lead</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-brand-dark text-white border-t border-white/10 py-12 mt-auto">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
-      <div class="flex items-center gap-2 font-display text-xl font-bold">
-        <span class="w-2.5 h-2.5 bg-brand-accent rounded-full"></span>
-        PACELINE
-      </div>
-      <p class="text-xs text-gray-500">© 2026 PACELINE Running Co. All rights reserved.</p>
-      <div class="flex space-x-6 text-sm text-gray-400">
-        <button type="button" onclick="switchPage('home')" class="hover:text-white transition-colors">Home</button>
-        <button type="button" onclick="switchPage('about')" class="hover:text-white transition-colors">About</button>
-        <button type="button" onclick="openBookingModal(event)" class="hover:text-white transition-colors">Book Fitting</button>
-      </div>
     </div>
-  </footer>
 
-  <!-- CART SLIDE-OVER DRAWER -->
-  <div id="cart-drawer" class="fixed inset-0 z-50 pointer-events-none hidden">
-    <div id="cart-overlay" onclick="toggleCart(event)" class="absolute inset-0 bg-black/50 backdrop-blur-sm opacity-0 transition-opacity duration-300 pointer-events-auto"></div>
-    <div id="cart-panel" class="absolute top-0 right-0 h-full w-full max-w-md bg-white shadow-2xl p-6 flex flex-col translate-x-full transition-transform duration-300 ease-in-out pointer-events-auto">
-      <div class="flex justify-between items-center pb-4 border-b">
-        <h2 class="font-display font-bold text-lg">YOUR SHOPPING BAG</h2>
-        <button type="button" onclick="toggleCart(event)" class="p-2 hover:bg-gray-100 rounded-full">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <div id="cart-items-list" class="flex-grow overflow-y-auto py-4 space-y-4">
-        <div class="flex justify-between items-center bg-brand-bg p-3 rounded-xl">
-          <div>
-            <h4 class="font-bold text-sm">Strider Pro Carbon v3</h4>
-            <p class="text-xs text-gray-500">$240 x 1</p>
-          </div>
-          <span class="font-bold text-sm">$240</span>
+    <!-- Search Overlay Modal -->
+    <div id="search-modal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-md hidden flex flex-col p-4 md:p-12">
+        <div class="max-w-3xl w-full mx-auto bg-white rounded-2xl overflow-hidden shadow-2xl flex flex-col border border-[#E2DFD8]">
+            <div class="p-4 border-b border-[#E2DFD8] flex items-center bg-[#F4F1EC]">
+                <i class="fa-solid fa-magnifying-glass text-gray-400 text-lg ml-2"></i>
+                <input id="search-input" onkeyup="filterSearchResults()" type="text" placeholder="Search shoes, apparel, accessories..." class="w-full bg-transparent px-4 py-2 text-base focus:outline-none font-medium">
+                <button type="button" onclick="toggleModal('search-modal')" class="text-gray-500 hover:text-black p-2 focus:outline-none">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            <div id="search-results-list" class="p-6 overflow-y-auto max-h-[60vh] space-y-4">
+                <p class="text-[10px] uppercase font-black tracking-widest text-gray-400 mb-2">Popular Searches</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span onclick="setSearchQuery('Strider')" class="cursor-pointer px-3 py-1 bg-[#F4F1EC] hover:bg-[#CCFF00] text-[10px] font-extrabold uppercase rounded-full">Strider</span>
+                    <span onclick="setSearchQuery('Trail')" class="cursor-pointer px-3 py-1 bg-[#F4F1EC] hover:bg-[#CCFF00] text-[10px] font-extrabold uppercase rounded-full">Trail Shoes</span>
+                    <span onclick="setSearchQuery('Accessories')" class="cursor-pointer px-3 py-1 bg-[#F4F1EC] hover:bg-[#CCFF00] text-[10px] font-extrabold uppercase rounded-full">Accessories</span>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="pt-4 border-t space-y-4">
-        <div class="flex justify-between font-bold">
-          <span>Subtotal</span>
-          <span id="cart-subtotal">$240.00</span>
-        </div>
-        <button type="button" onclick="alert('Proceeding to checkout!')" class="w-full bg-brand-dark text-white py-3 rounded-xl font-bold uppercase tracking-wider text-xs hover:bg-black transition-colors">
-          Checkout Now
-        </button>
-      </div>
     </div>
-  </div>
 
-  <!-- SEARCH OVERLAY MODAL -->
-  <div id="search-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-start justify-center pt-20 px-4">
-    <div class="bg-white w-full max-w-xl rounded-2xl p-6 shadow-2xl">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="font-bold text-sm uppercase tracking-wider text-gray-400">Search PACELINE</h3>
-        <button type="button" onclick="toggleSearch(event)" class="p-1 hover:bg-gray-100 rounded-full">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <input type="text" placeholder="Search shoes, apparel, hydration..." class="w-full bg-brand-bg border border-black/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-black">
-    </div>
-  </div>
+    <!-- Shopping Bag Drawer -->
+    <div id="cart-drawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden transition-opacity duration-300">
+        <div class="fixed inset-y-0 right-0 max-w-md w-full bg-white shadow-2xl flex flex-col justify-between">
+            <div class="p-6 border-b border-[#E2DFD8] flex items-center justify-between bg-[#F4F1EC]">
+                <div class="flex items-center space-x-2">
+                    <h3 class="font-display font-black text-xl uppercase tracking-tight">Shopping Bag</h3>
+                    <span id="cart-count-badge" class="bg-[#CCFF00] text-black text-xs font-extrabold px-2.5 py-0.5 rounded-full">0</span>
+                </div>
+                <button type="button" onclick="toggleCart()" class="text-gray-500 hover:text-black p-1 focus:outline-none">
+                    <i class="fa-solid fa-xmark text-2xl"></i>
+                </button>
+            </div>
 
-  <!-- BOOKING MODAL -->
-  <div id="booking-modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
-    <div class="bg-white w-full max-w-md rounded-2xl p-6 shadow-2xl">
-      <div class="flex justify-between items-center mb-4 border-b pb-3">
-        <h3 class="font-display font-bold text-lg">BOOK A FITTING APPOINTMENT</h3>
-        <button type="button" onclick="closeBookingModal(event)" class="p-1 hover:bg-gray-100 rounded-full">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <form onsubmit="handleBookingSubmit(event)" class="space-y-4">
-        <div>
-          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Full Name</label>
-          <input type="text" required placeholder="Runner Name" class="w-full bg-brand-bg border rounded-xl px-3 py-2 text-sm">
+            <!-- Cart Items -->
+            <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+                <p class="text-center text-gray-500 my-12 text-xs font-medium">Your shopping bag is currently empty.</p>
+            </div>
+
+            <!-- Cart Footer -->
+            <div class="p-6 border-t border-[#E2DFD8] bg-[#F4F1EC] space-y-4">
+                <div class="flex justify-between items-center font-bold text-base">
+                    <span class="uppercase text-xs tracking-wider">Subtotal</span>
+                    <span id="cart-subtotal" class="font-extrabold">$0</span>
+                </div>
+                <button type="button" onclick="checkout()" class="w-full bg-[#111111] hover:bg-[#CCFF00] hover:text-black text-white font-extrabold py-4 rounded-xl transition-all duration-200 uppercase tracking-wider text-xs flex items-center justify-center space-x-2 focus:outline-none">
+                    <span>PROCEED TO CHECKOUT</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </button>
+            </div>
         </div>
-        <div>
-          <label class="block text-xs font-bold uppercase text-gray-600 mb-1">Preferred Date</label>
-          <input type="date" required class="w-full bg-brand-bg border rounded-xl px-3 py-2 text-sm">
-        </div>
-        <button type="submit" class="w-full bg-brand-accent text-brand-dark py-3 rounded-xl font-extrabold uppercase text-xs tracking-wider hover:bg-brand-accentHover transition-colors">
-          Confirm Reservation
-        </button>
-      </form>
     </div>
-  </div>
 
-  <!-- JavaScript Logics -->
-  <script>
-    lucide.createIcons();
+    <!-- TOP ANNOUNCEMENT BAR -->
+    <div class="bg-[#111111] text-white text-[10px] font-extrabold tracking-widest py-2.5 px-4 uppercase text-center border-b border-gray-800 flex justify-between items-center overflow-x-auto whitespace-nowrap">
+        <div class="hidden lg:block w-1/4 text-left text-gray-400">
+            FREE SHIPPING OVER $70
+        </div>
+        <div class="w-full lg:w-2/4 text-center tracking-wider">
+            <span class="text-[#CCFF00]">AUTUMN '26 — NEW ARRIVALS DROP NOW LIVE</span>
+        </div>
+        <div class="hidden lg:flex w-1/4 justify-end space-x-4 text-gray-400">
+            <span>PACELINE STORE & CLUB</span>
+        </div>
+    </div>
 
-    function switchPage(pageId) {
-      const homePage = document.getElementById('page-home');
-      const aboutPage = document.getElementById('page-about');
-      const navHome = document.getElementById('nav-home');
-      const navAbout = document.getElementById('nav-about');
+    <!-- MAIN NAVBAR -->
+    <header class="sticky top-0 z-40 glass-nav border-b border-[#E2DFD8] transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <div class="flex items-center space-x-8">
+                <button type="button" onclick="switchTab(event, 'home')" class="font-display text-3xl font-black tracking-tighter hover:opacity-80 transition text-left focus:outline-none">
+                    PACELINE<span class="text-[#CCFF00] text-4xl leading-none">.</span>
+                </button>
+            </div>
 
-      if (pageId === 'about') {
-        homePage.classList.add('hidden');
-        aboutPage.classList.remove('hidden');
-        navAbout.className = "text-black font-semibold border-b-2 border-brand-accent pb-1 transition-colors";
-        navHome.className = "text-gray-500 hover:text-black transition-colors pb-1";
-      } else {
-        aboutPage.classList.add('hidden');
-        homePage.classList.remove('hidden');
-        navHome.className = "text-black font-semibold border-b-2 border-brand-accent pb-1 transition-colors";
-        navAbout.className = "text-gray-500 hover:text-black transition-colors pb-1";
-      }
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center space-x-8 font-extrabold text-xs uppercase tracking-wider">
+                <button type="button" onclick="filterAndScroll(event, 'Men')" class="hover:text-gray-500 transition focus:outline-none">Men</button>
+                <button type="button" onclick="filterAndScroll(event, 'Women')" class="hover:text-gray-500 transition focus:outline-none">Women</button>
+                <button type="button" onclick="filterAndScroll(event, 'Footwear')" class="hover:text-gray-500 transition focus:outline-none">Footwear</button>
+                <button type="button" onclick="filterAndScroll(event, 'Apparel')" class="hover:text-gray-500 transition focus:outline-none">Apparel</button>
+                <button type="button" id="nav-about-link" onclick="switchTab(event, 'about')" class="px-3.5 py-1.5 bg-black text-white hover:bg-[#CCFF00] hover:text-black rounded-full transition-all focus:outline-none">About</button>
+            </nav>
 
-    let isCartOpen = false;
-    let cartTotal = 240;
-    let cartCount = 1;
+            <!-- Right Actions -->
+            <div class="flex items-center space-x-5">
+                <button type="button" onclick="toggleModal('search-modal')" aria-label="Search" class="p-2 hover:bg-white rounded-full transition border border-transparent hover:border-[#E2DFD8] focus:outline-none">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </button>
+                <button type="button" onclick="toggleCart()" aria-label="Cart" class="relative p-2 hover:bg-white rounded-full transition border border-transparent hover:border-[#E2DFD8] focus:outline-none">
+                    <i class="fa-solid fa-bag-shopping text-xl"></i>
+                    <span id="nav-cart-badge" class="absolute -top-1 -right-1 bg-[#CCFF00] text-black font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center border border-black">0</span>
+                </button>
+                <!-- Mobile menu toggle -->
+                <button type="button" onclick="toggleMobileMenu()" aria-label="Menu" class="lg:hidden p-2 text-xl focus:outline-none">
+                    <i id="mobile-menu-icon" class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
 
-    function toggleCart(e) {
-      if (e) e.preventDefault();
-      const drawer = document.getElementById('cart-drawer');
-      const overlay = document.getElementById('cart-overlay');
-      const panel = document.getElementById('cart-panel');
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden border-t border-[#E2DFD8] bg-[#F4F1EC] px-6 py-6 space-y-4 font-bold uppercase tracking-wider text-xs">
+            <button type="button" onclick="switchTab(event, 'home'); toggleMobileMenu();" class="block w-full text-left py-2 focus:outline-none">Home</button>
+            <button type="button" onclick="switchTab(event, 'about'); toggleMobileMenu();" class="block w-full text-left py-2 text-[#CCFF00] bg-black px-4 rounded-xl focus:outline-none">About PACELINE</button>
+            <button type="button" onclick="filterAndScroll(event, 'Men'); toggleMobileMenu();" class="block w-full text-left py-2 focus:outline-none">Men</button>
+            <button type="button" onclick="filterAndScroll(event, 'Women'); toggleMobileMenu();" class="block w-full text-left py-2 focus:outline-none">Women</button>
+            <button type="button" onclick="filterAndScroll(event, 'Footwear'); toggleMobileMenu();" class="block w-full text-left py-2 focus:outline-none">Footwear</button>
+            <button type="button" onclick="filterAndScroll(event, 'Apparel'); toggleMobileMenu();" class="block w-full text-left py-2 focus:outline-none">Apparel</button>
+        </div>
+    </header>
 
-      isCartOpen = !isCartOpen;
-      if (isCartOpen) {
-        drawer.classList.remove('hidden');
-        setTimeout(() => {
-          overlay.classList.remove('opacity-0');
-          panel.classList.remove('translate-x-full');
-        }, 10);
-      } else {
-        overlay.classList.add('opacity-0');
-        panel.classList.add('translate-x-full');
-        setTimeout(() => {
-          drawer.classList.add('hidden');
-        }, 300);
-      }
-    }
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow">
+        
+        <!-- ============================================== -->
+        <!-- PAGE 1: HOME PAGE -->
+        <!-- ============================================== -->
+        <div id="page-home" class="space-y-16 md:space-y-24 pb-16">
+            
+            <!-- 01 HERO SECTION -->
+            <section class="relative min-h-[85vh] flex items-end justify-start p-6 md:p-12 overflow-hidden mx-4 md:mx-8 rounded-3xl mt-4 shadow-2xl border border-[#E2DFD8]">
+                <!-- Background Image -->
+                <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1800&q=80" alt="PACELINE Runner" class="absolute inset-0 w-full h-full object-cover object-center scale-105 transform hover:scale-100 transition-transform duration-1000">
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-    function addToCart(title, price, e) {
-      if (e) e.preventDefault();
-      cartCount++;
-      cartTotal += price;
-      document.getElementById('cart-count').innerText = cartCount;
-      document.getElementById('cart-subtotal').innerText = '$' + cartTotal + '.00';
-      
-      const itemsList = document.getElementById('cart-items-list');
-      const newItem = document.createElement('div');
-      newItem.className = "flex justify-between items-center bg-brand-bg p-3 rounded-xl";
-      newItem.innerHTML = `<div><h4 class="font-bold text-sm">${title}</h4><p class="text-xs text-gray-500">$${price} x 1</p></div><span class="font-bold text-sm">$${price}</span>`;
-      itemsList.appendChild(newItem);
+                <!-- Hero Content -->
+                <div class="relative z-10 max-w-3xl text-white space-y-6">
+                    <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-[#CCFF00]">
+                        <span class="w-2 h-2 rounded-full bg-[#CCFF00]"></span>
+                        <span>SPRING 2026 DROP</span>
+                    </div>
 
-      toggleCart(e);
-    }
+                    <h1 class="font-display text-5xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tight leading-none">
+                        Chase<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400">Every Second.</span>
+                    </h1>
 
-    function toggleSearch(e) {
-      if (e) e.preventDefault();
-      const modal = document.getElementById('search-modal');
-      modal.classList.toggle('hidden');
-    }
+                    <p class="text-gray-300 text-sm sm:text-base max-w-xl font-medium leading-relaxed">
+                        Precision gear, sub-three essentials, and everyday kit — shaped by runners, worn on every terrain.
+                    </p>
 
-    function openBookingModal(e) {
-      if (e) e.preventDefault();
-      document.getElementById('booking-modal').classList.remove('hidden');
-    }
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <button type="button" onclick="scrollToSection(event, 'new-arrivals')" class="bg-[#CCFF00] hover:bg-[#b8e600] text-black font-extrabold px-8 py-4 rounded-xl tracking-wider uppercase text-xs transition-transform active:scale-95 flex items-center space-x-2 focus:outline-none">
+                            <span>SHOP NEW ARRIVALS</span>
+                            <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                        </button>
+                        <button type="button" onclick="switchTab(event, 'about')" class="bg-transparent hover:bg-white/10 text-white border-2 border-white/60 font-extrabold px-8 py-4 rounded-xl tracking-wider uppercase text-xs transition focus:outline-none">
+                            READ OUR STORY
+                        </button>
+                    </div>
+                </div>
+            </section>
 
-    function closeBookingModal(e) {
-      if (e) e.preventDefault();
-      document.getElementById('booking-modal').classList.add('hidden');
-    }
+            <!-- 02 CATEGORIES SECTION (Updated with Images 4, 5, 6, 7) -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#E2DFD8]">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-gray-500">01 / CATEGORIES</span>
+                        <h2 class="font-display text-3xl sm:text-4xl font-black uppercase tracking-tight mt-1">Every discipline. Every distance.</h2>
+                    </div>
+                </div>
 
-    function handleBookingSubmit(e) {
-      e.preventDefault();
-      alert('Appointment booked successfully! We look forward to seeing you.');
-      closeBookingModal();
-    }
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Category Card 1 (4th Image Context: Road Running / Runner) -->
+                    <div onclick="filterCategory('Road', event)" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-md border border-[#E2DFD8]">
+                        <img src="image_2d5f21.jpg" alt="Road Running" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 text-white">
+                            <h3 class="font-display text-2xl font-black uppercase">Road Running</h3>
+                            <p class="text-xs text-gray-300 mt-1 mb-3">Speed, precision, pavement performance.</p>
+                            <span class="inline-flex items-center text-[10px] font-extrabold uppercase text-[#CCFF00]">
+                                SHOP <i class="fa-solid fa-chevron-right ml-1 text-[8px]"></i>
+                            </span>
+                        </div>
+                    </div>
 
-    function scrollToArrivals(e) {
-      if (e) e.preventDefault();
-      document.getElementById('new-arrivals').scrollIntoView({ behavior: 'smooth' });
-    }
+                    <!-- Category Card 2 (5th Image Context: Trail Running) -->
+                    <div onclick="filterCategory('Trail', event)" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-md border border-[#E2DFD8]">
+                        <img src="image_2d5f3e.jpg" alt="Trail Running" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 text-white">
+                            <h3 class="font-display text-2xl font-black uppercase">Trail Running</h3>
+                            <p class="text-xs text-gray-300 mt-1 mb-3">Grip, protection, alpine elevation.</p>
+                            <span class="inline-flex items-center text-[10px] font-extrabold uppercase text-[#CCFF00]">
+                                SHOP <i class="fa-solid fa-chevron-right ml-1 text-[8px]"></i>
+                            </span>
+                        </div>
+                    </div>
 
-    function filterCategory(cat, e) {
-      if (e) e.preventDefault();
-      if (document.getElementById('page-home').classList.contains('hidden')) {
-        switchPage('home');
-      }
+                    <!-- Category Card 3 (6th Image Context: Apparel) -->
+                    <div onclick="filterCategory('Apparel', event)" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-md border border-[#E2DFD8]">
+                        <img src="image_2d5f46.png" alt="Apparel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 text-white">
+                            <h3 class="font-display text-2xl font-black uppercase">Apparel</h3>
+                            <p class="text-xs text-gray-300 mt-1 mb-3">Ultralight layers built for every mile.</p>
+                            <span class="inline-flex items-center text-[10px] font-extrabold uppercase text-[#CCFF00]">
+                                SHOP <i class="fa-solid fa-chevron-right ml-1 text-[8px]"></i>
+                            </span>
+                        </div>
+                    </div>
 
-      if (e && e.target.classList.contains('cat-tab')) {
-        document.querySelectorAll('.cat-tab').forEach(tab => {
-          tab.className = "cat-tab px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-brand-lightGray text-gray-700 hover:bg-gray-200";
-        });
-        e.target.className = "cat-tab px-4 py-2 rounded-full text-xs font-bold uppercase transition-all bg-brand-dark text-white";
-      }
+                    <!-- Category Card 4 (7th Image Context: Accessories / Watch) -->
+                    <div onclick="filterCategory('Accessories', event)" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-md border border-[#E2DFD8]">
+                        <img src="image_2d5c78.png" alt="Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                        <div class="absolute bottom-6 left-6 right-6 text-white">
+                            <h3 class="font-display text-2xl font-black uppercase">Accessories</h3>
+                            <p class="text-xs text-gray-300 mt-1 mb-3">Watches, hydration packs & essential gear.</p>
+                            <span class="inline-flex items-center text-[10px] font-extrabold uppercase text-[#CCFF00]">
+                                SHOP <i class="fa-solid fa-chevron-right ml-1 text-[8px]"></i>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-      const cards = document.querySelectorAll('.product-card');
-      cards.forEach(card => {
-        if (cat === 'all' || card.getAttribute('data-category') === cat) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
+            <!-- 03 NEW ARRIVALS PRODUCT GRID (Updated with Image 8 / Shoe) -->
+            <section id="new-arrivals" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#E2DFD8]">
+                    <div>
+                        <span class="text-[10px] font-black uppercase tracking-widest text-gray-500">02 / JUST DROPPED</span>
+                        <h2 class="font-display text-3xl sm:text-4xl font-black uppercase tracking-tight mt-1">New arrivals for the run.</h2>
+                    </div>
+
+                    <!-- Filter Tabs -->
+                    <div class="flex flex-wrap gap-2 mt-4 md:mt-0" id="filter-tabs">
+                        <button type="button" onclick="setActiveFilter(this, 'all', event)" class="filter-btn active px-4 py-2 text-xs font-extrabold uppercase tracking-wider rounded-full bg-[#111111] text-white transition focus:outline-none">View All</button>
+                        <button type="button" onclick="setActiveFilter(this, 'raceday', event)" class="filter-btn px-4 py-2 text-xs font-extrabold uppercase tracking-wider rounded-full bg-white text-black border border-[#E2DFD8] hover:bg-gray-100 transition focus:outline-none">Race Day</button>
+                        <button type="button" onclick="setActiveFilter(this, 'trail', event)" class="filter-btn px-4 py-2 text-xs font-extrabold uppercase tracking-wider rounded-full bg-white text-black border border-[#E2DFD8] hover:bg-gray-100 transition focus:outline-none">Trail</button>
+                    </div>
+                </div>
+
+                <!-- Product Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="products-grid">
+                    <!-- Products dynamically rendered by JS -->
+                </div>
+            </section>
+
+            <!-- 04 BRAND STORY SPLIT SECTION -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div class="grid grid-cols-1 lg:grid-cols-2 rounded-3xl overflow-hidden border border-[#E2DFD8] shadow-2xl">
+                    <div class="relative min-h-[350px] lg:min-h-[500px]">
+                        <img src="https://images.unsplash.com/photo-1502904550040-7534597429ae?auto=format&fit=crop&w=1200&q=80" alt="Mountain Runner" class="w-full h-full object-cover">
+                    </div>
+                    <div class="bg-[#111111] text-white p-8 sm:p-12 lg:p-16 flex flex-col justify-between">
+                        <div>
+                            <span class="text-[10px] font-black uppercase tracking-widest text-[#CCFF00]">OUR STORY</span>
+                            <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-black uppercase tracking-tight mt-2 mb-6 leading-tight">
+                                Built by runners.<br>Worn on every terrain.
+                            </h2>
+                            <p class="text-gray-300 text-xs sm:text-sm leading-relaxed mb-8 font-medium">
+                                PACELINE started with one simple objective: to curate high-performance gear built for actual race conditions. Every shoe and layer in our catalog is tested on real road and trail miles.
+                            </p>
+                        </div>
+                        <div>
+                            <div class="grid grid-cols-3 gap-4 border-t border-gray-800 pt-6 mb-8 text-center sm:text-left">
+                                <div>
+                                    <div class="font-display text-2xl sm:text-3xl font-black text-[#CCFF00]">10+</div>
+                                    <div class="text-[9px] font-black uppercase tracking-wider text-gray-400 mt-1">YEARS IN STORE</div>
+                                </div>
+                                <div>
+                                    <div class="font-display text-2xl sm:text-3xl font-black text-[#CCFF00]">40+</div>
+                                    <div class="text-[9px] font-black uppercase tracking-wider text-gray-400 mt-1">RUN SESSIONS</div>
+                                </div>
+                                <div>
+                                    <div class="font-display text-2xl sm:text-3xl font-black text-[#CCFF00]">1</div>
+                                    <div class="text-[9px] font-black uppercase tracking-wider text-gray-400 mt-1">PASSION</div>
+                                </div>
+                            </div>
+                            <button type="button" onclick="switchTab(event, 'about')" class="w-full sm:w-auto bg-[#CCFF00] hover:bg-[#b8e600] text-black font-extrabold px-8 py-4 rounded-xl tracking-wider uppercase text-xs transition flex items-center justify-center space-x-2 focus:outline-none">
+                                <span>READ THE FULL STORY</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 05 MEN'S & WOMEN'S DUAL BANNER (Updated Men's Image) -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Men's Banner (Updated with Male Runner image) -->
+                    <div class="relative h-[450px] rounded-3xl overflow-hidden group border border-[#E2DFD8] shadow-lg">
+                        <img src="image_2d5f21.jpg" alt="Men's Running Apparel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-8 left-8 right-8 text-white space-y-3">
+                            <h3 class="font-display text-3xl font-black uppercase tracking-tight">Men's Running</h3>
+                            <p class="text-xs text-gray-300 max-w-md font-medium">Footwear & apparel built for speed, day after day.</p>
+                            <button type="button" onclick="filterCategory('Men', event)" class="inline-flex items-center space-x-2 bg-white text-black font-extrabold px-6 py-3 rounded-xl text-xs uppercase tracking-wider hover:bg-[#CCFF00] transition focus:outline-none">
+                                <span>SHOP NOW</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Women's Banner -->
+                    <div class="relative h-[450px] rounded-3xl overflow-hidden group border border-[#E2DFD8] shadow-lg">
+                        <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=1000&q=80" alt="Women's Running" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
+                        <div class="absolute bottom-8 left-8 right-8 text-white space-y-3">
+                            <h3 class="font-display text-3xl font-black uppercase tracking-tight">Women's Running</h3>
+                            <p class="text-xs text-gray-300 max-w-md font-medium">High-performance tech engineered for women.</p>
+                            <button type="button" onclick="filterCategory('Women', event)" class="inline-flex items-center space-x-2 bg-white text-black font-extrabold px-6 py-3 rounded-xl text-xs uppercase tracking-wider hover:bg-[#CCFF00] transition focus:outline-none">
+                                <span>SHOP NOW</span>
+                                <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 06 ACTION BANNER -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-[#CCFF00] rounded-3xl p-8 sm:p-12 md:p-16 text-black text-center space-y-6 shadow-2xl relative overflow-hidden">
+                    <div class="max-w-2xl mx-auto space-y-4 relative z-10">
+                        <span class="text-[10px] font-black uppercase tracking-widest bg-black text-white px-3 py-1 rounded-full">NEXT STEPS</span>
+                        <h2 class="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight leading-none">
+                            Come find your next pair of shoes.
+                        </h2>
+                        <div class="flex flex-wrap justify-center gap-4 pt-2">
+                            <button type="button" onclick="openFittingModal(event)" class="bg-[#111111] text-white hover:bg-gray-800 font-extrabold px-8 py-4 rounded-xl text-xs uppercase tracking-wider transition shadow-lg focus:outline-none">
+                                BOOK FITTING
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- PAGE 2: ABOUT PAGE -->
+        <!-- ============================================== -->
+        <div id="page-about" class="hidden space-y-16 md:space-y-24 pb-16">
+            
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+                <div class="text-center max-w-3xl mx-auto space-y-4 mb-10">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-gray-500">ABOUT / STORY</span>
+                    <h1 class="font-display text-5xl sm:text-7xl font-black uppercase tracking-tight">
+                        Our Story
+                    </h1>
+                    <p class="text-gray-600 text-sm sm:text-base leading-relaxed font-medium">
+                        All we ever wanted was to build a space that loved running as much as we did. A place for race day nerves, long runs, and personal bests.
+                    </p>
+                </div>
+
+                <div class="rounded-3xl overflow-hidden shadow-2xl h-[380px] sm:h-[500px] relative border border-[#E2DFD8]">
+                    <img src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?auto=format&fit=crop&w=1600&q=80" alt="Marathon Crowd Runners" class="w-full h-full object-cover">
+                </div>
+            </section>
+
+            <!-- 01 CORE STATEMENT -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                    <div class="lg:col-span-4">
+                        <span class="text-[10px] font-black uppercase tracking-widest text-gray-500">OUR PHILOSOPHY</span>
+                        <h2 class="font-display text-3xl sm:text-4xl font-black uppercase tracking-tight mt-1">
+                            We're all about the run.
+                        </h2>
+                    </div>
+                    <div class="lg:col-span-8 space-y-6 text-gray-700 leading-relaxed font-medium text-xs sm:text-sm">
+                        <p>
+                            PACELINE was born out of a simple desire: authentic, race-grade technical running gear and biomechanical fitting.
+                        </p>
+                        <div class="pt-4 border-t border-[#E2DFD8] font-display text-xs font-bold text-black uppercase tracking-wider">
+                            — Rae Sinclair & Jamie Roy, Co-Founders
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 02 VISIT US SECTION (Updated with Image 3 / Map) -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 rounded-3xl overflow-hidden border border-[#E2DFD8] shadow-xl">
+                    <div class="bg-[#111111] text-white p-8 sm:p-12 flex flex-col justify-between">
+                        <div class="space-y-6">
+                            <span class="text-[10px] font-black uppercase tracking-widest text-[#CCFF00]">VISIT US</span>
+                            <h2 class="font-display text-3xl sm:text-4xl font-black uppercase">
+                                Visit our Fitting Lab
+                            </h2>
+                            <div class="space-y-4 text-xs text-gray-300 font-medium">
+                                <div>
+                                    <div class="font-extrabold text-white text-sm">PACELINE Store & Fitting Lab</div>
+                                    <p class="mt-0.5">14 Performance Street</p>
+                                </div>
+                                <div>
+                                    <div class="font-extrabold text-white">Opening Hours</div>
+                                    <p class="mt-0.5">Mon – Sat: 10:00 – 19:00<br>Sunday: 11:00 – 17:00</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="button" onclick="showToast('Opening store directions...')" class="mt-8 bg-[#CCFF00] hover:bg-[#b8e600] text-black font-extrabold px-8 py-4 rounded-xl tracking-wider uppercase text-xs transition flex items-center justify-center space-x-2 focus:outline-none">
+                            <span>GET DIRECTIONS</span>
+                            <i class="fa-solid fa-location-dot text-xs ml-1"></i>
+                        </button>
+                    </div>
+
+                    <!-- Map Image Box (Image 3) -->
+                    <div class="relative bg-gray-200 min-h-[350px] overflow-hidden">
+                        <img src="image_2d5bc3.jpg" alt="Map Location View" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="relative">
+                                <div class="w-12 h-12 bg-[#CCFF00] rounded-full pin-pulse flex items-center justify-center border-4 border-black shadow-2xl">
+                                    <i class="fa-solid fa-person-running text-black text-lg"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 03 FOUNDERS SECTION (Updated with Images 1 & 2) -->
+            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="mb-8">
+                    <span class="text-[10px] font-black uppercase tracking-widest text-gray-500">THE FOUNDERS</span>
+                    <h2 class="font-display text-3xl sm:text-4xl font-black uppercase tracking-tight mt-1">
+                        The people behind the shop.
+                    </h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                    <!-- Founder 1 (Image 1) -->
+                    <div class="bg-white rounded-2xl overflow-hidden border border-[#E2DFD8] shadow-sm group">
+                        <div class="h-80 overflow-hidden relative">
+                            <img src="image_2d5897.jpg" alt="Rae Sinclair" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-4 left-4 bg-[#CCFF00] text-black text-[9px] font-black uppercase px-3 py-1 rounded-full tracking-wider">
+                                CO-FOUNDER & HEAD OF GEAR
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-black uppercase">Rae Sinclair</h3>
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mt-0.5 mb-3">Sub-2:40 Marathoner</p>
+                            <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                                Rae oversees all shoe and apparel curation, testing products directly on road and trail.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Founder 2 (Image 2) -->
+                    <div class="bg-white rounded-2xl overflow-hidden border border-[#E2DFD8] shadow-sm group">
+                        <div class="h-80 overflow-hidden relative">
+                            <img src="image_2d58b9.jpg" alt="Jamie Roy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute bottom-4 left-4 bg-[#CCFF00] text-black text-[9px] font-black uppercase px-3 py-1 rounded-full tracking-wider">
+                                CO-FOUNDER & COMMUNITY
+                            </span>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="font-display text-2xl font-black uppercase">Jamie Roy</h3>
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mt-0.5 mb-3">Biomechanics Specialist</p>
+                            <p class="text-xs text-gray-600 leading-relaxed font-medium">
+                                Lead gait analyst and community run club director. Jamie built PACELINE's custom gait lab program.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#111111] text-gray-400 border-t border-gray-900 pt-16 pb-12 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+            <div class="col-span-2 space-y-4">
+                <button type="button" onclick="switchTab(event, 'home')" class="font-display text-2xl font-black text-white tracking-tighter focus:outline-none">
+                    PACELINE<span class="text-[#CCFF00]">.</span>
+                </button>
+                <p class="text-gray-500 max-w-sm leading-relaxed text-xs">
+                    Precision gear, sub-three essentials, and everyday kit — shaped by runners.
+                </p>
+            </div>
+            <div class="space-y-3">
+                <div class="font-extrabold text-white uppercase text-xs tracking-wider">Navigation</div>
+                <ul class="space-y-2 text-xs">
+                    <li><button type="button" onclick="switchTab(event, 'home')" class="hover:text-white transition focus:outline-none">Home</button></li>
+                    <li><button type="button" onclick="switchTab(event, 'about')" class="hover:text-white transition focus:outline-none">About Us</button></li>
+                    <li><button type="button" onclick="openFittingModal(event)" class="hover:text-white transition focus:outline-none">Book Fitting</button></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 border-t border-gray-900 text-[10px] text-gray-500 font-medium">
+            © 2026 PACELINE Running Co. — All rights reserved.
+        </div>
+    </footer>
+
+    <script>
+        const PRODUCTS = [
+            {
+                id: 1,
+                title: "Strider Pro Carbon v3",
+                brand: "PACELINE LAB",
+                price: 240,
+                badge: "NEW",
+                category: "raceday",
+                image: "image_2d5f7e.png"
+            },
+            {
+                id: 2,
+                title: "Nimbus Float Daily",
+                brand: "PACELINE RUN",
+                price: 160,
+                badge: "NEW",
+                category: "all",
+                image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 3,
+                title: "Alpine Crest GTX Trail",
+                brand: "PACELINE OUTDOOR",
+                price: 185,
+                badge: "TRAIL",
+                category: "trail",
+                image: "image_2d5f3e.jpg"
+            },
+            {
+                id: 4,
+                title: "Tempo Glide Trainer",
+                brand: "PACELINE RUN",
+                price: 140,
+                badge: "POPULAR",
+                category: "all",
+                image: "image_2d5f46.png"
+            }
+        ];
+
+        let cart = [];
+        let activeTab = 'home';
+
+        function switchTab(e, tabName) {
+            if (e) e.preventDefault();
+            activeTab = tabName;
+            const homePage = document.getElementById('page-home');
+            const aboutPage = document.getElementById('page-about');
+            const navAboutLink = document.getElementById('nav-about-link');
+
+            if (tabName === 'about') {
+                homePage.classList.add('hidden');
+                aboutPage.classList.remove('hidden');
+                navAboutLink.classList.add('bg-[#CCFF00]', 'text-black');
+                navAboutLink.classList.remove('bg-black', 'text-white');
+            } else {
+                aboutPage.classList.add('hidden');
+                homePage.classList.remove('hidden');
+                navAboutLink.classList.remove('bg-[#CCFF00]', 'text-black');
+                navAboutLink.classList.add('bg-black', 'text-white');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
-      });
-    }
-  </script>
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('products-grid');
+            if (!grid) return;
+
+            const filtered = filter === 'all' 
+                ? PRODUCTS 
+                : PRODUCTS.filter(p => p.category === filter);
+
+            grid.innerHTML = filtered.map(product => `
+                <div class="bg-white rounded-2xl p-4 border border-[#E2DFD8] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group">
+                    <div class="relative bg-[#F4F1EC] rounded-xl overflow-hidden p-6 mb-4 flex items-center justify-center min-h-[200px]">
+                        <span class="absolute top-3 left-3 text-[9px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider bg-black text-white">
+                            ${product.badge}
+                        </span>
+                        <img src="${product.image}" alt="${product.title}" class="w-full h-36 object-contain group-hover:scale-110 transition-transform duration-500">
+                    </div>
+
+                    <div class="space-y-2">
+                        <span class="text-[9px] font-black uppercase tracking-widest text-gray-400">${product.brand}</span>
+                        <h3 class="font-extrabold text-xs text-black group-hover:text-gray-700 transition">${product.title}</h3>
+                        <div class="font-black text-sm text-black">$${product.price}</div>
+                        <button type="button" onclick="addToCart(${product.id}, event)" class="w-full mt-3 bg-[#111111] hover:bg-[#CCFF00] hover:text-black text-white text-[10px] font-extrabold uppercase py-3 rounded-xl transition duration-200 flex items-center justify-center space-x-2 focus:outline-none">
+                            <i class="fa-solid fa-plus text-[9px]"></i>
+                            <span>ADD TO BAG</span>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setActiveFilter(btnElement, category, e) {
+            if (e) e.preventDefault();
+            const buttons = document.querySelectorAll('#filter-tabs button');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-[#111111]', 'text-white');
+                btn.classList.add('bg-white', 'text-black', 'border', 'border-[#E2DFD8]');
+            });
+            btnElement.classList.remove('bg-white', 'text-black', 'border', 'border-[#E2DFD8]');
+            btnElement.classList.add('bg-[#111111]', 'text-white');
+            
+            renderProducts(category);
+        }
+
+        function addToCart(productId, e) {
+            if (e) e.preventDefault();
+            const product = PRODUCTS.find(p => p.id === productId);
+            if (!product) return;
+
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+
+            updateCartUI();
+            showToast(`Added ${product.title} to bag!`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartUI();
+        }
+
+        function updateCartQty(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            item.qty += delta;
+            if (item.qty <= 0) {
+                removeFromCart(productId);
+            } else {
+                updateCartUI();
+            }
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+
+            document.getElementById('cart-count-badge').innerText = totalCount;
+            document.getElementById('nav-cart-badge').innerText = totalCount;
+            document.getElementById('cart-subtotal').innerText = `$${subtotal}`;
+
+            if (cart.length === 0) {
+                container.innerHTML = `<p class="text-center text-gray-500 my-12 text-xs font-medium">Your shopping bag is currently empty.</p>`;
+                return;
+            }
+
+            container.innerHTML = cart.map(item => `
+                <div class="flex items-center space-x-3 p-3 bg-[#F4F1EC] rounded-xl border border-[#E2DFD8]">
+                    <img src="${item.image}" alt="${item.title}" class="w-14 h-14 object-cover rounded-lg bg-white p-1">
+                    <div class="flex-1">
+                        <h4 class="font-extrabold text-xs leading-tight">${item.title}</h4>
+                        <span class="text-xs text-gray-500 font-medium">$${item.price}</span>
+                        <div class="flex items-center space-x-2 mt-2">
+                            <button type="button" onclick="updateCartQty(${item.id}, -1)" class="w-5 h-5 rounded bg-white text-xs font-bold shadow-sm flex items-center justify-center">-</button>
+                            <span class="text-xs font-bold px-1">${item.qty}</span>
+                            <button type="button" onclick="updateCartQty(${item.id}, 1)" class="w-5 h-5 rounded bg-white text-xs font-bold shadow-sm flex items-center justify-center">+</button>
+                        </div>
+                    </div>
+                    <button type="button" onclick="removeFromCart(${item.id})" class="text-gray-400 hover:text-red-600 p-2">
+                        <i class="fa-solid fa-trash-can text-xs"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleCart() {
+            const drawer = document.getElementById('cart-drawer');
+            drawer.classList.toggle('hidden');
+        }
+
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) modal.classList.toggle('hidden');
+        }
+
+        function openFittingModal(e) {
+            if (e) e.preventDefault();
+            const modal = document.getElementById('booking-modal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const icon = document.getElementById('mobile-menu-icon');
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars';
+            } else {
+                icon.className = 'fa-solid fa-xmark';
+            }
+        }
+
+        function handleBooking(e) {
+            e.preventDefault();
+            toggleModal('booking-modal');
+            showToast('Fitting appointment confirmed!');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = message;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                showToast('Your bag is empty! Add items first.');
+                return;
+            }
+            showToast('Redirecting to checkout...');
+        }
+
+        function scrollToSection(e, sectionId) {
+            if (e) e.preventDefault();
+            if (activeTab !== 'home') switchTab(e, 'home');
+            const target = document.getElementById(sectionId);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function filterAndScroll(e, categoryName) {
+            if (e) e.preventDefault();
+            if (activeTab !== 'home') switchTab(e, 'home');
+            showToast(`Filtering for ${categoryName}...`);
+            scrollToSection(e, 'new-arrivals');
+        }
+
+        function filterCategory(catName, e) {
+            filterAndScroll(e, catName);
+        }
+
+        function setSearchQuery(query) {
+            document.getElementById('search-input').value = query;
+            filterSearchResults();
+        }
+
+        function filterSearchResults() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const resultsContainer = document.getElementById('search-results-list');
+            if (!query.trim()) return;
+
+            const matches = PRODUCTS.filter(p => p.title.toLowerCase().includes(query) || p.brand.toLowerCase().includes(query) || p.category.toLowerCase().includes(query));
+
+            if (matches.length === 0) {
+                resultsContainer.innerHTML = `<p class="text-xs text-gray-500">No results found for "${query}"</p>`;
+            } else {
+                resultsContainer.innerHTML = matches.map(m => `
+                    <div onclick="addToCart(${m.id}, event); toggleModal('search-modal');" class="flex items-center justify-between p-3 hover:bg-[#F4F1EC] rounded-xl cursor-pointer border border-transparent hover:border-[#E2DFD8]">
+                        <div class="flex items-center space-x-3">
+                            <img src="${m.image}" class="w-10 h-10 object-contain bg-white rounded-lg p-1">
+                            <div>
+                                <h4 class="font-extrabold text-xs">${m.title}</h4>
+                                <span class="text-[10px] text-gray-500">${m.brand} · $${m.price}</span>
+                            </div>
+                        </div>
+                        <span class="text-[9px] font-extrabold text-black uppercase bg-[#CCFF00] px-3 py-1 rounded-full">+ BAG</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        window.onload = function() {
+            renderProducts('all');
+        };
+    </script>
 </body>
 </html>
