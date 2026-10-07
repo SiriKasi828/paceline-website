@@ -154,12 +154,10 @@
                 </button>
             </div>
 
-            <!-- Cart Items -->
             <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
                 <p class="text-center text-gray-500 my-12 text-xs font-medium">Your shopping bag is currently empty.</p>
             </div>
 
-            <!-- Cart Footer -->
             <div class="p-6 border-t border-[#E2DFD8] bg-[#F4F1EC] space-y-4">
                 <div class="flex justify-between items-center font-bold text-base">
                     <span class="uppercase text-xs tracking-wider">Subtotal</span>
@@ -189,14 +187,12 @@
     <!-- MAIN NAVBAR -->
     <header class="sticky top-0 z-40 glass-nav border-b border-[#E2DFD8] transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Brand Logo -->
             <div class="flex items-center space-x-8">
                 <button type="button" onclick="switchTab(event, 'home')" class="font-display text-3xl font-black tracking-tighter hover:opacity-80 transition text-left focus:outline-none">
                     PACELINE<span class="text-[#CCFF00] text-4xl leading-none">.</span>
                 </button>
             </div>
 
-            <!-- Desktop Nav Links -->
             <nav class="hidden lg:flex items-center space-x-8 font-extrabold text-xs uppercase tracking-wider">
                 <button type="button" onclick="filterAndScroll(event, 'Men')" class="hover:text-gray-500 transition focus:outline-none">Men</button>
                 <button type="button" onclick="filterAndScroll(event, 'Women')" class="hover:text-gray-500 transition focus:outline-none">Women</button>
@@ -205,7 +201,6 @@
                 <button type="button" id="nav-about-link" onclick="switchTab(event, 'about')" class="px-3.5 py-1.5 bg-black text-white hover:bg-[#CCFF00] hover:text-black rounded-full transition-all focus:outline-none">About</button>
             </nav>
 
-            <!-- Right Actions -->
             <div class="flex items-center space-x-5">
                 <button type="button" onclick="toggleModal('search-modal')" aria-label="Search" class="p-2 hover:bg-white rounded-full transition border border-transparent hover:border-[#E2DFD8] focus:outline-none">
                     <i class="fa-solid fa-magnifying-glass text-lg"></i>
@@ -214,14 +209,12 @@
                     <i class="fa-solid fa-bag-shopping text-xl"></i>
                     <span id="nav-cart-badge" class="absolute -top-1 -right-1 bg-[#CCFF00] text-black font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center border border-black">0</span>
                 </button>
-                <!-- Mobile menu toggle -->
                 <button type="button" onclick="toggleMobileMenu()" aria-label="Menu" class="lg:hidden p-2 text-xl focus:outline-none">
                     <i id="mobile-menu-icon" class="fa-solid fa-bars"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Navigation Drawer -->
         <div id="mobile-menu" class="hidden lg:hidden border-t border-[#E2DFD8] bg-[#F4F1EC] px-6 py-6 space-y-4 font-bold uppercase tracking-wider text-xs">
             <button type="button" onclick="switchTab(event, 'home'); toggleMobileMenu();" class="block w-full text-left py-2 focus:outline-none">Home</button>
             <button type="button" onclick="switchTab(event, 'about'); toggleMobileMenu();" class="block w-full text-left py-2 text-[#CCFF00] bg-black px-4 rounded-xl focus:outline-none">About PACELINE</button>
@@ -232,21 +225,16 @@
         </div>
     </header>
 
-    <!-- MAIN CONTENT CONTAINER -->
     <main class="flex-grow">
         
-        <!-- ============================================== -->
         <!-- PAGE 1: HOME PAGE -->
-        <!-- ============================================== -->
         <div id="page-home" class="space-y-16 md:space-y-24 pb-16">
             
             <!-- 01 HERO SECTION -->
             <section class="relative min-h-[85vh] flex items-end justify-start p-6 md:p-12 overflow-hidden mx-4 md:mx-8 rounded-3xl mt-4 shadow-2xl border border-[#E2DFD8]">
-                <!-- Background Image -->
-                <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1800&q=80" alt="PACELINE Runner" class="absolute inset-0 w-full h-full object-cover object-center scale-105 transform hover:scale-100 transition-transform duration-1000">
+                <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1800&q=80" alt="PACELINE Runner" class="absolute inset-0 w-full h-full object-cover object-center">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-                <!-- Hero Content -->
                 <div class="relative z-10 max-w-3xl text-white space-y-6">
                     <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md border border-white/20 px-3.5 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest text-[#CCFF00]">
                         <span class="w-2 h-2 rounded-full bg-[#CCFF00]"></span>
@@ -273,7 +261,7 @@
                 </div>
             </section>
 
-            <!-- 02 CATEGORIES SECTION (Updated with Images 4, 5, 6, 7) -->
+            <!-- 02 CATEGORIES SECTION -->
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#E2DFD8]">
                     <div>
@@ -283,9 +271,9 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Category Card 1 (4th Image Context: Road Running / Runner) -->
+                    <!-- Road Running -->
                     <div onclick="filterCategory('Road', event)" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-md border border-[#E2DFD8]">
-                        <img src="image_2d5f21.jpg" alt="Road Running" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="image_2d5f21.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80';" alt="Road Running" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 right-6 text-white">
                             <h3 class="font-display text-2xl font-black uppercase">Road Running</h3>
@@ -296,9 +284,9 @@
                         </div>
                     </div>
 
-                    <!-- Category Card 2 (5th Image Context: Trail Running) -->
+                    <!-- Trail Running -->
                     <div onclick="filterCategory('Trail', event)" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-md border border-[#E2DFD8]">
-                        <img src="image_2d5f3e.jpg" alt="Trail Running" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="image_2d5f3e.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=800&q=80';" alt="Trail Running" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 right-6 text-white">
                             <h3 class="font-display text-2xl font-black uppercase">Trail Running</h3>
@@ -309,9 +297,9 @@
                         </div>
                     </div>
 
-                    <!-- Category Card 3 (6th Image Context: Apparel) -->
+                    <!-- Apparel -->
                     <div onclick="filterCategory('Apparel', event)" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-md border border-[#E2DFD8]">
-                        <img src="image_2d5f46.png" alt="Apparel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="image_2d5f46.png" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1517838277536-f5f99be501cd?auto=format&fit=crop&w=800&q=80';" alt="Apparel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 right-6 text-white">
                             <h3 class="font-display text-2xl font-black uppercase">Apparel</h3>
@@ -322,9 +310,9 @@
                         </div>
                     </div>
 
-                    <!-- Category Card 4 (7th Image Context: Accessories / Watch) -->
+                    <!-- Accessories -->
                     <div onclick="filterCategory('Accessories', event)" class="group relative h-96 rounded-2xl overflow-hidden cursor-pointer shadow-md border border-[#E2DFD8]">
-                        <img src="image_2d5c78.png" alt="Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <img src="image_2d5c78.png" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1508685096489-7aacd43bd3b1?auto=format&fit=crop&w=800&q=80';" alt="Accessories" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
                         <div class="absolute bottom-6 left-6 right-6 text-white">
                             <h3 class="font-display text-2xl font-black uppercase">Accessories</h3>
@@ -337,7 +325,7 @@
                 </div>
             </section>
 
-            <!-- 03 NEW ARRIVALS PRODUCT GRID (Updated with Image 8 / Shoe) -->
+            <!-- 03 NEW ARRIVALS -->
             <section id="new-arrivals" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
                 <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-[#E2DFD8]">
                     <div>
@@ -345,7 +333,6 @@
                         <h2 class="font-display text-3xl sm:text-4xl font-black uppercase tracking-tight mt-1">New arrivals for the run.</h2>
                     </div>
 
-                    <!-- Filter Tabs -->
                     <div class="flex flex-wrap gap-2 mt-4 md:mt-0" id="filter-tabs">
                         <button type="button" onclick="setActiveFilter(this, 'all', event)" class="filter-btn active px-4 py-2 text-xs font-extrabold uppercase tracking-wider rounded-full bg-[#111111] text-white transition focus:outline-none">View All</button>
                         <button type="button" onclick="setActiveFilter(this, 'raceday', event)" class="filter-btn px-4 py-2 text-xs font-extrabold uppercase tracking-wider rounded-full bg-white text-black border border-[#E2DFD8] hover:bg-gray-100 transition focus:outline-none">Race Day</button>
@@ -353,13 +340,12 @@
                     </div>
                 </div>
 
-                <!-- Product Grid -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="products-grid">
-                    <!-- Products dynamically rendered by JS -->
+                    <!-- Dynamic Product Cards -->
                 </div>
             </section>
 
-            <!-- 04 BRAND STORY SPLIT SECTION -->
+            <!-- 04 BRAND STORY -->
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                 <div class="grid grid-cols-1 lg:grid-cols-2 rounded-3xl overflow-hidden border border-[#E2DFD8] shadow-2xl">
                     <div class="relative min-h-[350px] lg:min-h-[500px]">
@@ -372,7 +358,7 @@
                                 Built by runners.<br>Worn on every terrain.
                             </h2>
                             <p class="text-gray-300 text-xs sm:text-sm leading-relaxed mb-8 font-medium">
-                                PACELINE started with one simple objective: to curate high-performance gear built for actual race conditions. Every shoe and layer in our catalog is tested on real road and trail miles.
+                                PACELINE started with one simple objective: to curate high-performance gear built for actual race conditions.
                             </p>
                         </div>
                         <div>
@@ -399,18 +385,18 @@
                 </div>
             </section>
 
-            <!-- 05 MEN'S & WOMEN'S DUAL BANNER (Updated Men's Image) -->
+            <!-- 05 FEATURED COLLECTIONS -->
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Men's Banner (Updated with Male Runner image) -->
+                    <!-- Men's Banner -->
                     <div class="relative h-[450px] rounded-3xl overflow-hidden group border border-[#E2DFD8] shadow-lg">
-                        <img src="image_2d5f21.jpg" alt="Men's Running Apparel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <img src="image_2d5f21.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1530549387789-4c1017266635?auto=format&fit=crop&w=1000&q=80';" alt="Men's Running Apparel" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
                         <div class="absolute bottom-8 left-8 right-8 text-white space-y-3">
                             <h3 class="font-display text-3xl font-black uppercase tracking-tight">Men's Running</h3>
                             <p class="text-xs text-gray-300 max-w-md font-medium">Footwear & apparel built for speed, day after day.</p>
                             <button type="button" onclick="filterCategory('Men', event)" class="inline-flex items-center space-x-2 bg-white text-black font-extrabold px-6 py-3 rounded-xl text-xs uppercase tracking-wider hover:bg-[#CCFF00] transition focus:outline-none">
-                                <span>SHOP NOW</span>
+                                <span>EXPLORE MEN'S</span>
                                 <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </button>
                         </div>
@@ -422,9 +408,9 @@
                         <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent"></div>
                         <div class="absolute bottom-8 left-8 right-8 text-white space-y-3">
                             <h3 class="font-display text-3xl font-black uppercase tracking-tight">Women's Running</h3>
-                            <p class="text-xs text-gray-300 max-w-md font-medium">High-performance tech engineered for women.</p>
+                            <p class="text-xs text-gray-300 max-w-md font-medium">Light, fast, & unstoppable technical gear.</p>
                             <button type="button" onclick="filterCategory('Women', event)" class="inline-flex items-center space-x-2 bg-white text-black font-extrabold px-6 py-3 rounded-xl text-xs uppercase tracking-wider hover:bg-[#CCFF00] transition focus:outline-none">
-                                <span>SHOP NOW</span>
+                                <span>EXPLORE WOMEN'S</span>
                                 <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </button>
                         </div>
@@ -450,9 +436,7 @@
             </section>
         </div>
 
-        <!-- ============================================== -->
         <!-- PAGE 2: ABOUT PAGE -->
-        <!-- ============================================== -->
         <div id="page-about" class="hidden space-y-16 md:space-y-24 pb-16">
             
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
@@ -462,7 +446,7 @@
                         Our Story
                     </h1>
                     <p class="text-gray-600 text-sm sm:text-base leading-relaxed font-medium">
-                        All we ever wanted was to build a space that loved running as much as we did. A place for race day nerves, long runs, and personal bests.
+                        All we ever wanted was to build a space that loved running as much as we did.
                     </p>
                 </div>
 
@@ -471,27 +455,7 @@
                 </div>
             </section>
 
-            <!-- 01 CORE STATEMENT -->
-            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    <div class="lg:col-span-4">
-                        <span class="text-[10px] font-black uppercase tracking-widest text-gray-500">OUR PHILOSOPHY</span>
-                        <h2 class="font-display text-3xl sm:text-4xl font-black uppercase tracking-tight mt-1">
-                            We're all about the run.
-                        </h2>
-                    </div>
-                    <div class="lg:col-span-8 space-y-6 text-gray-700 leading-relaxed font-medium text-xs sm:text-sm">
-                        <p>
-                            PACELINE was born out of a simple desire: authentic, race-grade technical running gear and biomechanical fitting.
-                        </p>
-                        <div class="pt-4 border-t border-[#E2DFD8] font-display text-xs font-bold text-black uppercase tracking-wider">
-                            — Rae Sinclair & Jamie Roy, Co-Founders
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 02 VISIT US SECTION (Updated with Image 3 / Map) -->
+            <!-- VISIT US -->
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 rounded-3xl overflow-hidden border border-[#E2DFD8] shadow-xl">
                     <div class="bg-[#111111] text-white p-8 sm:p-12 flex flex-col justify-between">
@@ -518,9 +482,9 @@
                         </button>
                     </div>
 
-                    <!-- Map Image Box (Image 3) -->
+                    <!-- Map Image -->
                     <div class="relative bg-gray-200 min-h-[350px] overflow-hidden">
-                        <img src="image_2d5bc3.jpg" alt="Map Location View" class="w-full h-full object-cover">
+                        <img src="image_2d5bc3.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=1000&q=80';" alt="Map Location View" class="w-full h-full object-cover">
                         <div class="absolute inset-0 flex items-center justify-center">
                             <div class="relative">
                                 <div class="w-12 h-12 bg-[#CCFF00] rounded-full pin-pulse flex items-center justify-center border-4 border-black shadow-2xl">
@@ -532,7 +496,7 @@
                 </div>
             </section>
 
-            <!-- 03 FOUNDERS SECTION (Updated with Images 1 & 2) -->
+            <!-- FOUNDERS -->
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="mb-8">
                     <span class="text-[10px] font-black uppercase tracking-widest text-gray-500">THE FOUNDERS</span>
@@ -542,10 +506,10 @@
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                    <!-- Founder 1 (Image 1) -->
+                    <!-- Founder 1 -->
                     <div class="bg-white rounded-2xl overflow-hidden border border-[#E2DFD8] shadow-sm group">
                         <div class="h-80 overflow-hidden relative">
-                            <img src="image_2d5897.jpg" alt="Rae Sinclair" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="image_2d5897.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80';" alt="Rae Sinclair" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             <span class="absolute bottom-4 left-4 bg-[#CCFF00] text-black text-[9px] font-black uppercase px-3 py-1 rounded-full tracking-wider">
                                 CO-FOUNDER & HEAD OF GEAR
                             </span>
@@ -559,10 +523,10 @@
                         </div>
                     </div>
 
-                    <!-- Founder 2 (Image 2) -->
+                    <!-- Founder 2 -->
                     <div class="bg-white rounded-2xl overflow-hidden border border-[#E2DFD8] shadow-sm group">
                         <div class="h-80 overflow-hidden relative">
-                            <img src="image_2d58b9.jpg" alt="Jamie Roy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="image_2d58b9.jpg" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80';" alt="Jamie Roy" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             <span class="absolute bottom-4 left-4 bg-[#CCFF00] text-black text-[9px] font-black uppercase px-3 py-1 rounded-full tracking-wider">
                                 CO-FOUNDER & COMMUNITY
                             </span>
@@ -609,39 +573,39 @@
         const PRODUCTS = [
             {
                 id: 1,
-                title: "Strider Pro Carbon v3",
-                brand: "PACELINE LAB",
+                title: "Cloudmonster 2 — Hyper Lily",
+                brand: "ON RUNNING",
+                price: 215,
+                badge: "NEW",
+                category: "all",
+                image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80"
+            },
+            {
+                id: 2,
+                title: "Vaporfly 3 — Acid Ice",
+                brand: "NIKE",
                 price: 240,
                 badge: "NEW",
                 category: "raceday",
                 image: "image_2d5f7e.png"
             },
             {
-                id: 2,
-                title: "Nimbus Float Daily",
-                brand: "PACELINE RUN",
-                price: 160,
-                badge: "NEW",
-                category: "all",
-                image: "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&w=800&q=80"
-            },
-            {
                 id: 3,
-                title: "Alpine Crest GTX Trail",
-                brand: "PACELINE OUTDOOR",
-                price: 185,
-                badge: "TRAIL",
-                category: "trail",
-                image: "image_2d5f3e.jpg"
+                title: "Endorphin Pro 4 — Sunset",
+                brand: "SAUCONY",
+                price: 220,
+                badge: "NEW",
+                category: "raceday",
+                image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&w=800&q=80"
             },
             {
                 id: 4,
-                title: "Tempo Glide Trainer",
-                brand: "PACELINE RUN",
-                price: 140,
-                badge: "POPULAR",
-                category: "all",
-                image: "image_2d5f46.png"
+                title: "Megablast — White Glow",
+                brand: "ASICS",
+                price: 210,
+                badge: "TRAIL",
+                category: "trail",
+                image: "image_2d5f3e.jpg"
             }
         ];
 
@@ -683,7 +647,7 @@
                         <span class="absolute top-3 left-3 text-[9px] font-black uppercase px-2.5 py-1 rounded-md tracking-wider bg-black text-white">
                             ${product.badge}
                         </span>
-                        <img src="${product.image}" alt="${product.title}" class="w-full h-36 object-contain group-hover:scale-110 transition-transform duration-500">
+                        <img src="${product.image}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80';" alt="${product.title}" class="w-full h-36 object-contain group-hover:scale-110 transition-transform duration-500">
                     </div>
 
                     <div class="space-y-2">
@@ -760,7 +724,7 @@
 
             container.innerHTML = cart.map(item => `
                 <div class="flex items-center space-x-3 p-3 bg-[#F4F1EC] rounded-xl border border-[#E2DFD8]">
-                    <img src="${item.image}" alt="${item.title}" class="w-14 h-14 object-cover rounded-lg bg-white p-1">
+                    <img src="${item.image}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80';" alt="${item.title}" class="w-14 h-14 object-cover rounded-lg bg-white p-1">
                     <div class="flex-1">
                         <h4 class="font-extrabold text-xs leading-tight">${item.title}</h4>
                         <span class="text-xs text-gray-500 font-medium">$${item.price}</span>
@@ -867,7 +831,7 @@
                 resultsContainer.innerHTML = matches.map(m => `
                     <div onclick="addToCart(${m.id}, event); toggleModal('search-modal');" class="flex items-center justify-between p-3 hover:bg-[#F4F1EC] rounded-xl cursor-pointer border border-transparent hover:border-[#E2DFD8]">
                         <div class="flex items-center space-x-3">
-                            <img src="${m.image}" class="w-10 h-10 object-contain bg-white rounded-lg p-1">
+                            <img src="${m.image}" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=800&q=80';" class="w-10 h-10 object-contain bg-white rounded-lg p-1">
                             <div>
                                 <h4 class="font-extrabold text-xs">${m.title}</h4>
                                 <span class="text-[10px] text-gray-500">${m.brand} · $${m.price}</span>
